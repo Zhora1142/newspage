@@ -1,0 +1,5 @@
+mysql:
+  username: newsuser
+  password: 
+  host: 192.168.0.145
+  database: newspage

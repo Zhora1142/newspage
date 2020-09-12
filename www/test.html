@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script type="text/javascript src="Jquery1_10_2.js"> </script>
+    <link rel="stylesheet" type="text/css" href="bootstrap.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="LogIn_Page.css" media="screen" />
+<!--    <script type="text/javascript src="LogIn_Page.js"> </script> -->
+
+</head>
+<body>
+    <div style="margin-top: 15px;text-align: center;" class="navbar navbar-inverse navbar-fixed-top container">
+
+    <a href="http://somesite.com/" title="Web Site"> <img src="Logo.png" alt="somesite" style="width:225px; height:100px; text-align:center; margin-right:5px"> </a>
+    <a href="http://www.somesite2.org/" title="Web Site"> <img src="somesite_logo.png" alt="somesite" style="width:225px; height:100px; text-align:center;margin-right:5px; margin-left:5px;"> </a>
+    <a href="http://somesite3.com/" title="somesite Web Site"> <img src="somesite.png" alt="somesite" style="width:225px; height:100px; text-align:center; margin-left:5px;"> </a>
+
+    </div>
+
+    <div class="container body-content" style="margin-top: 125px;">
+        <div class="row">
+            <div class="col-md-12"> 
+            <H1 style="margin-bottom: 50px;">Welcome to the Crops web application</H1>
+            <P>Please login:</P> 
+
+            <button onclick="window.location.href=&quot;/auth&quot;" >Login link</button>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+    <div id="footer">
+
+        <footer>
+        <script>window.onload = function() {
+        var d = new Date();
+        var n = d.getFullYear();
+        document.getElementById("date").innerHTML = "© " + n + " My company";}</script> 
+            <p id="date"></p>
+        </footer>
+    </div>
+</body>
+</html>

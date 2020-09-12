@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Новости</title>
+    <style>
+		* {
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		
+        body {
+			margin: 0;
+			background: #252126;
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			width: 100%;
+			min-width: 719px;
+			height: 100%;
+		}
+		
+		.header {
+			display: flex;
+			flex: 1;
+			align-items: center;
+			justify-content: space-between;
+            background-color: #fafafa;
+			width: 90%;
+			max-height: 60px;
+			margin-top: 10px;
+			border-radius: 10px;
+        }
+		
+		h1 {
+			letter-spacing: 1px;
+		}
+		
+		#head_1 {
+			margin-left: 1%;
+		}
+		
+		#head_1 a {
+			text-decoration: none;
+			color: black;
+		}
+		
+		#head_2 {
+			margin-right: 1%;
+		}
+		
+		.container {
+			display: flex;
+			flex: 8;
+			background-color: #fafafa;
+			width: 90%;
+			min-height: 324px;
+			border-radius: 10px;
+			margin: 10px;
+			justify-content: center;
+			align-items: flex-start;
+			flex-wrap: wrap;
+		}
+		
+		.box {
+			margin: 10px;
+			background-color: white;
+			border-radius: 20px;
+			border: 2px solid;
+			border-color: rgba(0,0,0,.15);
+			width: 300px;
+			height: 300px;
+			display: flex;
+			flex-direction: column;
+			padding: 0px 5px;
+			align-items: flex-start;
+		}
+		
+		.box:hover {
+			box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
+			cursor: pointer;
+		}
+		
+		.box:active {
+			background-color: #f8f8f8;
+		}
+		
+		.box h2 {
+			margin: 5px;
+			font-size: 20pt;
+		}
+		.box a {
+			margin: 5px;
+			font-size: 12pt;
+			overflow: hidden;
+		}
+		
+		#error {
+			font-weight: bold;
+			margin: auto;
+			font-size: 30pt;
+		}
+		
+		.loading {
+			border-radius: 50%;
+			box-shadow: inset rgba(0, 0, 0, 0.75) 0px 0px 5px 0px,
+						rgba(0, 0, 0, 0.75) 0px 0px 5px 0px;
+			animation: spin 1s linear infinite;
+		}
+		
+		@keyframes spin {
+			0% { transform: rotate(0deg); }
+			100% { transform: rotate(360deg); }
+		}
+		
+		.loading-popup {
+			display: flex;
+			position: fixed;
+			justify-content: center;
+			align-items: center;
+			height: 100%;
+			width: 100%;
+			min-width: 719px;
+			top: 0px;
+			background-color: rgba(0,0,0,0.5);
+		}
+		
+		#popup {
+			border: 20px solid white;
+			border-top: 20px solid #252126;
+			height: 100px;
+			width: 100px;
+		}
+		
+		.footer {
+			flex: 1;
+            background-color: #fafafa;
+			width: 90%;
+			min-height: 100px;
+			border-radius: 10px;
+			margin-bottom: 10px;
+		}
+    </style>
+	<script type="application/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script>
+		function create_message(text, color='#e81010') {
+			var element = document.createElement('div')
+			element.id = 'error'
+			var warning_text = document.createElement('a')
+			warning_text.innerText = text
+			warning_text.style = 'color: ' + color
+			element.appendChild(warning_text)
+			$('.container').append(element)
+		}
+		
+		function create_article(id, title, preview) {
+			var div = document.createElement('div')
+			div.className = 'box'
+			div.id = id
+			div.onclick = function() {window.location = '/page.html?id=' + id}
+			var h2 = document.createElement('h2')
+			h2.innerText = title
+			var a = document.createElement('a')
+			a.innerText = preview
+			div.appendChild(h2)
+			div.appendChild(a)
+			$('.container').append(div)
+		}
+		
+		$('document').ready(function() {
+			$('.loading-popup').show()
+			$.ajax('/api/news/get/', {
+					type: 'get',
+					statusCode: {
+						200: function(response) {
+							console.log('200')
+							if (response.status == 'ok') {
+								if (response.response != ![]) {
+									$.each(response.response, function(i) {
+										create_article(id=response.response[i].id, title=response.response[i].title, preview=response.response[i].preview)
+									})
+								}
+								else {
+									create_message(text='Новостей не найдено', color='black')
+								}
+							}
+							else {
+								create_message(text=response.error.error_msg)
+							}
+						}
+					},
+					error: function(jqXHR) {
+						create_message('Error ' + jqXHR.status)
+					}
+				})
+				.always(function() {
+					$('.loading-popup').hide()
+				})
+		})
+	</script>
+</head>
+<body>
+	<div class='loading-popup' style="display: none;">
+		<div class='loading' id='popup'></div>
+	</div>
+    <div class="header">
+		<h1 id="head_1"><a href="/">Новости</a></h1>
+		<h1 id="head_2">2020</h1>
+	</div>
+	<div class="container">
+	</div>
+	<div class="footer">
+	</div>
+</body>
+</html>
