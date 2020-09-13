@@ -300,11 +300,7 @@
 		}
     </style>
 	<script type="application/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script>
-		function back() {
-			window.history.back();
-		}
-		
+	<script>	
 		function update_preview() {
 			h2 = $('.preview-box h2')[0]
 			a = $('.preview-box a')[0]
@@ -421,7 +417,7 @@
 		<h1 id="head_2">2020</h1>
 	</div>
 	<div class="container">
-		<button id="back-button" onclick="back()">&#10094;</button>
+		<button id="back-button" onclick="window.location = '/admin.html'">&#10094;</button>
 		<div class="content">
 			<form onsubmit="return false">
 				<a class="titles">Заголовок</a>
