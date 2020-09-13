@@ -1,5 +1,0 @@
-mysql:
-  username: egor
-  password: za6dip13
-  host: 192.168.0.145
-  database: newspage
