@@ -129,6 +129,7 @@ def get_news():
         )
     else:
         id = request.args.get('id')
+        raw = request.args.get('raw')
         if id is None:
             return app.response_class(
                 response=dumps({
@@ -138,7 +139,7 @@ def get_news():
                 headers=json_header
             )
         else:
-            result = news.get_by_id(id)
+            result = news.get_by_id(id, raw)
             if result is None:
                 return app.response_class(
                     response=dumps({
