@@ -1,5 +1,6 @@
 import pymysql
 import yaml
+from markdown import markdown
 
 sql = yaml.load(open('config.yml').read())['mysql']
 
@@ -27,16 +28,29 @@ def get():
             return n
 
 
-def get_by_id(id):
-    try:
-        n = req('SELECT * FROM articles WHERE id=%s', id)
-    except:
-        return 'error'
-    else:
-        if n == ():
-            return None
+def get_by_id(id, raw):
+    if raw == '1':
+        try:
+            n = req('SELECT * FROM articles WHERE id=%s', id)
+        except:
+            return 'error'
         else:
-            return n[0]
+            if n == ():
+                return None
+            else:
+                return n[0]
+    else:
+        try:
+            n = req('SELECT * FROM articles WHERE id=%s', id)
+        except:
+            return 'error'
+        else:
+            if n == ():
+                return None
+            else:
+                n = n[0]
+                n['body'] = markdown(n['body'])
+                return n
 
 
 def remove(id):
