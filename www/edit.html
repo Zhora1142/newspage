@@ -313,11 +313,7 @@
 		}
     </style>
 	<script type="application/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script>
-		function back() {
-			window.history.back();
-		}
-		
+	<script>	
 		function fill_page(id, interval) {
 			$.ajax('/api/news/get/?id=' + id, {
 				type: 'get',
@@ -480,7 +476,7 @@
 		<div class='b_popup'>
 			<a id='popup-title'>Ошибка</a>
 			<a id='popup-message'>При выполнении запроса возникла ошибка. Попробуйте перезагрузить страницу или повторите попытку позже.</a>
-			<a id="error_msg">Internal server error</a>
+			<a id="error_msg"></a>
 			<button onclick='hidePopUp()'>Закрыть</button>
 		</div>
 	</div>
@@ -489,7 +485,7 @@
 		<h1 id="head_2">2020</h1>
 	</div>
 	<div class="container">
-		<button id="back-button" onclick="back()">&#10094;</button>
+		<button id="back-button" onclick="window.location = '/admin.html'">&#10094;</button>
 		<a class="id-title"></a>
 		<div class="content">
 			<form onsubmit="return false">

@@ -7,6 +7,12 @@
 		* {
 			font-family: Arial, Helvetica, sans-serif;
 		}
+		
+		a {
+			text-decoration: none;
+			color: black;
+		}
+		
 		body {
 			margin: 0;
 			background: #252126;
@@ -96,7 +102,15 @@
 			background-color: white;
 		}
 		
-		.act {text-align: center;}
+		.act {position: relative;}
+		
+		.act a {
+			position: absolute;
+			left: 0; right: 0;
+			top: 0; bottom: 0;
+			padding-top: 10px;
+			padding-left: 7px;
+		}
 		
 		.id {text-align: center;}
 		
@@ -292,8 +306,10 @@
 			var td_edit = document.createElement('td')
 			td_edit.className = 'act'
 			td_edit.id = 'edit-' + id
-			td_edit.onclick = function() {window.location = '/edit.html?id=' + id}
-			td_edit.innerText = 'Edit'
+			var a_edit = document.createElement('a')
+			a_edit.href = '/edit.html?id=' + id
+			a_edit.innerText = 'Edit'
+			td_edit.appendChild(a_edit)
 			tr.appendChild(td_edit)
 			var td_remove = document.createElement('td')
 			td_remove.className = 'act'
@@ -370,7 +386,7 @@
 		<div class='b_popup'>
 			<a id='popup-title'>Ошибка</a>
 			<a id='popup-message'>При выполнении запроса возникла ошибка. Попробуйте перезагрузить страницу или повторите попытку позже.</a>
-			<a id="error_msg">Internal server error</a>
+			<a id="error_msg"></a>
 			<button onclick='hidePopUp()'>Закрыть</button>
 		</div>
 	</div>
@@ -397,7 +413,9 @@
 			<tbody>
 			</tbody>
 		</table>
-		<button id="create" onclick="window.location = '/create.html';" style="display: none;">Добавить новость</button>
+		<a href='/create.html'>
+			<button id="create" style="display: none;">Добавить новость</button>
+		</a>
 	</div>
 	<div class="footer">
 	</div>
